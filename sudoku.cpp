@@ -4,7 +4,7 @@
 using namespace std;
 
    bool rowcheck(int array[9][9],int lim, int n);
-
+   bool sudoku(int r , int c );
 //-------------------------------------MAIN FUNCTION---------------------------------------
 int main(){
 
@@ -24,5 +24,38 @@ bool rowcheck(int array[9][9],int lim, int n){
             }
         }
     }
+
+	//------------------------------------------------------------------------------------------------
+	bool sudoku(int r , int c ) {
+    if(r == 9){
+	 return true; 
+	 }
+	         
+     if(c == 9){
+	 return sudoku(r + 1, 0); 
+}
+
+    for(int count = 0; count < 9; count++) {
+    	
+        int num = rand() % 9 + 1;   
+        array[r][c] = num ;
+
+        if(!rowcheck(array, 9, r) &&
+           !columncheck(array, 9, c) &&
+           !box(array, r, c)) {
+
+            if(sudoku(r, c + 1)) return true; 
+        }
+
+        array[r][c] = 0;        
+    }
+
+    return false; 
+}  
+
+
+	
       return false;
 }
+
+
