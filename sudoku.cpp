@@ -24,7 +24,8 @@ bool rowcheck(int array[9][9],int lim, int n){
             }
         }
     }
-
+      return false;
+}
 	//------------------------------------------------------------------------------------------------
 	bool sudoku(int r , int c ) {
     if(r == 9){
@@ -55,7 +56,6 @@ bool rowcheck(int array[9][9],int lim, int n){
 
 
 	
-      return false;
-}
+
 
 
