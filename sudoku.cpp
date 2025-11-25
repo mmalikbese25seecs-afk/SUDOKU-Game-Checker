@@ -5,6 +5,20 @@ using namespace std;
 
    bool rowcheck(int array[9][9],int lim, int n);
    bool sudoku(int r , int c );
+//before main declaration
+bool columncheck(int array[9][9],int lim,int n){
+    for(int i=0; i< lim; i++){
+        if(array[i][n]==0) {
+continue;
+}
+         for(int j=i+1; j<lim; j++){
+            if(array[i][n]==array[j][n]){
+                return true;
+            }
+        }
+    }
+    return false;
+}
 //-------------------------------------MAIN FUNCTION---------------------------------------
 int main(){
 
@@ -63,19 +77,7 @@ bool columncheck(int array[9][9],int lim, int n);
 
 
 // after main
-bool columncheck(int array[9][9],int lim,int n){
-    for(int i=0; i< lim; i++){
-        if(array[i][n]==0) {
-continue;
-}
-         for(int j=i+1; j<lim; j++){
-            if(array[i][n]==array[j][n]){
-                return true;
-            }
-        }
-    }
-    return false;
-}
+
 
 
 	
