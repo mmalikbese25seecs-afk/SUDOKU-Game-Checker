@@ -5,6 +5,8 @@ using namespace std;
 
    bool rowcheck(int array[9][9],int lim, int n);
    bool sudoku(int r , int c );
+bool box(int array[9][9], int row, int column);  
+
 //before main declaration
 bool columncheck(int array[9][9],int lim,int n){
     for(int i=0; i< lim; i++){
@@ -77,6 +79,32 @@ bool columncheck(int array[9][9],int lim, int n);
 
 
 // after main
+bool box(int array[9][9], int row, int column)
+{
+    int startrow = row - (row%3);
+    int startcolumn = column - (column%3);
+    int one_d[9];
+    int enter = 0;
+    for (int i = startrow; i < startrow +3; i++) {
+        for(int j = startcolumn; j < startcolumn+ 3; j++) {
+            one_d[enter] = array[i][j];
+            enter++
+        }
+    }
+    for (int k = 0; k <9; k++) {
+        if(one_d[k] == 0) {
+continue;
+}
+        for (int j = k + 1; j < 9; j++) {
+            if(one_d[k] == rep[j]) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
 
 
 
