@@ -1,26 +1,17 @@
-d#include <iostream>
+#include <iostream>
 #include <cstdlib>
 #include <ctime>
 using namespace std;
 
    bool rowcheck(int array[9][9],int lim, int n);
+
+bool columncheck(int array[9][9],int lim, int n);
+
    bool sudoku(int r , int c );
 bool box(int array[9][9], int row, int column);  
 
 //before main declaration
-bool columncheck(int array[9][9],int lim,int n){
-    for(int i=0; i< lim; i++){
-        if(array[i][n]==0) {
-continue;
-}
-         for(int j=i+1; j<lim; j++){
-            if(array[i][n]==array[j][n]){
-                return true;
-            }
-        }
-    }
-    return false;
-}
+
 //-------------------------------------MAIN FUNCTION---------------------------------------
 int main(){
 
@@ -72,8 +63,6 @@ bool rowcheck(int array[9][9],int lim, int n){
 // before main declaration
 
 
-bool columncheck(int array[9][9],int lim, int n);
-
 
 
 
@@ -104,6 +93,19 @@ continue;
     return false;
 }
 
+bool columncheck(int array[9][9],int lim,int n){
+    for(int i=0; i< lim; i++){
+        if(array[i][n]==0) {
+continue;
+}
+         for(int j=i+1; j<lim; j++){
+            if(array[i][n]==array[j][n]){
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 
 
