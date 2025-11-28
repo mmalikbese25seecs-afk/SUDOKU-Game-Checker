@@ -14,7 +14,10 @@ bool box(int array[9][9], int row, int column);
 
 //-------------------------------------MAIN FUNCTION---------------------------------------
 int main(){
-
+	srand(time(0));  // seed for random numbers
+    if(sudoku(0, 0)) {
+        cout << "Sudoku generated successfully:\n";
+	}
   system("pause");
   return 0;
 }
@@ -77,7 +80,7 @@ bool box(int array[9][9], int row, int column)
     for (int i = startrow; i < startrow +3; i++) {
         for(int j = startcolumn; j < startcolumn+ 3; j++) {
             one_d[enter] = array[i][j];
-            enter++
+            enter++;
         }
     }
     for (int k = 0; k <9; k++) {
