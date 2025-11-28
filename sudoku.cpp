@@ -1,4 +1,4 @@
-#include <iostream>
+d#include <iostream>
 #include <cstdlib>
 #include <ctime>
 using namespace std;
@@ -96,7 +96,7 @@ bool box(int array[9][9], int row, int column)
 continue;
 }
         for (int j = k + 1; j < 9; j++) {
-            if(one_d[k] == rep[j]) {
+            if(one_d[k] == one_d[j]) {
                 return true;
             }
         }
