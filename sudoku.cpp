@@ -9,6 +9,9 @@ using namespace std;
    bool box(int array[9][9], int row, int column); 
    bool sudoku(int r , int c );
  void missNumbers(int array[9][9], int count);
+void printBoard(int array[9][9]);
+	
+
 
 int sudokusol[9][9]={0};
 
@@ -180,16 +183,23 @@ continue;
 			board[randomrow][randomcolumn] = 0;    //Sets the missed place==0
 			numsmissed++;
 		}
-
-
-
 	}
-
-
-
 }
 
-
+--------------------------------------Function for printing a valid sudoku board-------------------------------------
+void printBoard(int array[9][9]) {
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 9; j++) {
+			if (board[i][j] == 0){
+				cout << "_ ";  // empty cells shown as "_"
+			}
+			else{
+				cout << board[i][j] << " ";  // filled cells
+			}
+		}
+		cout << endl;
+	}
+}
 
 	
 
