@@ -8,7 +8,7 @@ using namespace std;
    bool columncheck(int array[9][9],int lim, int n); 
    bool box(int array[9][9], int row, int column); 
    bool sudoku(int r , int c );
- 
+ void missNumbers(int array[9][9], int count);
 
 int sudokusol[9][9]={0};
 
@@ -168,6 +168,26 @@ continue;
     return false;
 }
 
+--------------------------------------Function for missing values in a valid sudoku board-------------------------------------
+	void missNumbers(int array[9][9], int count) {
+	int numsmissed = 0;
+	while (numsmissed < count) {
+
+		int randomrow = rand() % 9;
+		int randomcolumn = rand() % 9;
+
+		if (board[randomrow][randomcolumn] != 0) { // only remove if the cell is not already zero so no duplication occurs
+			board[randomrow][randomcolumn] = 0;    //Sets the missed place==0
+			numsmissed++;
+		}
+
+
+
+	}
+
+
+
+}
 
 
 
