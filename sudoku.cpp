@@ -3,14 +3,14 @@
 #include <ctime>
 using namespace std;
 
+   //before main declaration
    bool rowcheck(int array[9][9],int lim, int n);
-
-bool columncheck(int array[9][9],int lim, int n);
-
+   bool columncheck(int array[9][9],int lim, int n); 
+   bool box(int array[9][9], int row, int column); 
    bool sudoku(int r , int c );
-bool box(int array[9][9], int row, int column);  
+ 
 
-//before main declaration
+int sudokusol[9][9]={0};
 
 //-------------------------------------MAIN FUNCTION---------------------------------------
 int main(){
@@ -26,7 +26,7 @@ bool rowcheck(int array[9][9],int lim, int n){
     for(int j=0; j<lim; j++){      
 
     if(array[n][j] == 0){
-	  continue;  ??If array
+	  continue;  
 	 }
     for(int k=j+1 ; k<lim; k++){
      if(array[n][j]==array[n][k]){
@@ -49,7 +49,7 @@ bool rowcheck(int array[9][9],int lim, int n){
     for(int count = 0; count < 9; count++) {
     	
         int num = rand() % 9 + 1;   
-        array[r][c] = num ;
+        sudokusol[r][c] = num ;
 
         if(!rowcheck(array, 9, r) &&
            !columncheck(array, 9, c) &&
@@ -58,7 +58,7 @@ bool rowcheck(int array[9][9],int lim, int n){
             if(sudoku(r, c + 1)) return true; 
         }
 
-        array[r][c] = 0;        
+        sudokusol[r][c] = 0;        
     }
 
     return false; 
