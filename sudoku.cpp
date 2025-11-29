@@ -14,6 +14,64 @@ int sudokusol[9][9]={0};
 
 //-------------------------------------MAIN FUNCTION---------------------------------------
 int main(){
+	// ANSI colors
+    string red     = "\033[31m";
+    string green   = "\033[32m";
+    string yellow  = "\033[33m";
+    string blue    = "\033[34m";
+    string magenta = "\033[35m";
+    string cyan    = "\033[36m";
+    string white   = "\033[37m";
+    string bold    = "\033[1m";
+    string reset   = "\033[0m";
+    // Clear screen
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+    // Big ASCII letters for "SUDOKU" (with complete U)
+    cout << bold << red     << "  _____ _    _ _____   ____  _   _ _    _ " << reset << endl;
+    cout << bold << green   << " / ____| |  | |  __ \\ / __ \\| |/ /| |  | |" << reset << endl;
+    cout << bold << yellow  << "| (___ | |  | | |  | | |  | | | / | |  | |" << reset << endl;
+    cout << bold << blue    << " \\___ \\| |  | | |  | | |  | |  <  | |  | |" << reset << endl;
+    cout << bold << magenta << " ____) | |__| | |__| | |__| | | \\ | |__| |" << reset << endl;
+    cout << bold << cyan    << "|_____/ \\____/|_____/ \\____/|_|\\_\\ \\____/  " << reset << endl;
+    cout << endl << yellow << "      Welcome to SUDOKU!" << reset << endl << endl;
+    // Dummy Sudoku board
+    string board[] = {
+        "+-------+-------+-------+",
+        "| 5 3 . | . 7 . | . . . |",
+        "| 6 . . | 1 9 5 | . . . |",
+        "| . 9 8 | . . . | . 6 . |",
+        "+-------+-------+-------+",
+        "| 8 . . | . 6 . | . . 3 |",
+        "| 4 . . | 8 . 3 | . . 1 |",
+        "| 7 . . | . 2 . | . . 6 |",
+        "+-------+-------+-------+",
+        "| . 6 . | . . . | 2 8 . |",
+        "| . . . | 4 1 9 | . . 5 |",
+        "| . . . | . 8 . | . 7 9 |",
+        "+-------+-------+-------+"
+    };
+    // Print board in colors
+    for (auto &line : board) {
+        for (char ch : line) {
+            if (ch == '+' || ch == '-' || ch == '|')
+                cout << cyan << ch << reset;
+            else if (isdigit(ch))
+                cout << bold << green << ch << reset;
+            else if (ch == '.')
+                cout << white << ch << reset;
+            else
+                cout << ch;
+        }
+        cout << endl;
+    }
+    cout << endl;
+    cout << yellow << "Press Enter to start the game..." << reset << endl;
+    cin.get();
+    cout << green << "Starting Sudoku game..." << reset << endl;
 	srand(time(0));  // seed for random numbers
     if(sudoku(0, 0)) {
         cout << "Sudoku generated successfully:\n";
