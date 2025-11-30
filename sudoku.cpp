@@ -4,15 +4,16 @@
 using namespace std;
 
    //before main declaration
+   bool validmove(int board[9][9], int r, int c, int num);
    bool rowcheck(int array[9][9],int lim, int n);
    bool columncheck(int array[9][9],int lim, int n); 
    bool box(int array[9][9], int row, int column); 
    bool sudoku(int r , int c );
    void missNumbers(int board[9][9], int count);
    void printBoard(int board[9][9]);
-	
+   void hint();
 
-
+int score = 0;
 int sudokusol[9][9]={0};
 int playboard[9][9]={0};
 //-------------------------------------MAIN FUNCTION---------------------------------------
@@ -52,6 +53,7 @@ int main(){
          playboard[i][j] = sudokusol[i][j];
      }
  }
+	printBoard(playboard)
   system("pause");
   return 0;
 }
@@ -189,8 +191,21 @@ void printBoard(int board[9][9]) {
     }
 }
 
+//----------------------------------------------------------------------------
+	bool validmove(int board[9][9], int r, int c, int num)
+{
+    
+    int temp = board[r][c];
+    board[r][c] = num;
 
-	
+    bool invalid;
+ rowcheck(board,9,r) || 
+                   columncheck(board,9,c) || 
+                   box(board,r,c);
 
+    board[r][c] = temp; // revert
 
+    return !invalid; // true if valid
+}
 
+//-----------------------------------------------------------------------------
