@@ -51,7 +51,21 @@ int main(){
     if(sudoku(0, 0)) {
         cout << "Sudoku generated successfully "<<endl;
 	}
-	
+
+	------------------------------------------------LEVELS(EASY,MEDIUM,HARD)-------------------------------------------------
+		int level;
+	cout<<"Enter the level you want to play(1=Easy,2=Medium,3=Master)";
+cin>>level;
+if(level==1){
+missNumbers( board[9][9], 25);
+}
+if(level==2){
+missNumbers( board[9][9], 40);
+}
+if(level==3){
+missNumbers( board[9][9], 55);
+}
+
 	for(int i = 0; i < 9; i++){
      for(int j = 0; j < 9; j++){
          playboard[i][j] = sudokusol[i][j];
