@@ -256,9 +256,13 @@ cout<<"Enter the row number (1-9): "<<endl;
 cin>>row;
 cout<<"Enter the column number (1-9): "<<endl;
 cin>>column;
-if((row>=1||row<=9 )||(column>=1||column<=9)){
+if((row>=1&&row<=9 )&&(column>=1&&column<=9)){
 	break;
 }
+	else{
+		cout<<"wrong input\n";
+		continue;
+	}
 }
    row--;
    column--;
