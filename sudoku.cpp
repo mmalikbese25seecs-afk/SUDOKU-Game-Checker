@@ -171,7 +171,7 @@ continue;
     return false;
 }
 
---------------------------------------Function for missing values in a valid sudoku board-------------------------------------
+//--------------------------------------Function for missing values in a valid sudoku board-------------------------------------
 	void missNumbers(int array[9][9], int count) {
 	int numsmissed = 0;
 	while (numsmissed < count) {
@@ -186,20 +186,33 @@ continue;
 	}
 }
 
---------------------------------------Function for printing a valid sudoku board-------------------------------------
-void printBoard(int array[9][9]) {
-	for (int i = 0; i < 9; i++) {
-		for (int j = 0; j < 9; j++) {
-			if (board[i][j] == 0){
-				cout << "_ ";  // empty cells shown as "_"
-			}
-			else{
-				cout << board[i][j] << " ";  // filled cells
-			}
-		}
-		cout << endl;
-	}
+//--------------------------------------Function for printing a valid sudoku board-------------------------------------
+void printBoard(int board[9][9]) {
+
+    cout << "+-------+-------+-------+\n";
+
+    for (int i = 0; i < 9; i++) {
+
+        cout << "| ";   // left border
+
+        for (int j = 0; j < 9; j++) {
+
+            if (board[i][j] == 0)
+                cout << "_ ";
+            else
+                cout << board[i][j] << " ";
+
+            if ((j + 1) % 3 == 0)   // after every 3 columns
+                cout << "| ";
+        }
+
+        cout << "\n";
+
+        if ((i + 1) % 3 == 0)  // after every 3 rows
+            cout << "+-------+-------+-------+\n";
+    }
 }
+
 
 	
 
