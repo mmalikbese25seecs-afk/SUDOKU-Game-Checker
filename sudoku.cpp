@@ -63,13 +63,13 @@ int main(){
 	cout<<"Enter the level you want to play(1=Easy,2=Medium,3=Master)";
 cin>>level;
 if(level==1){
-missNumbers( playboard[9][9], 25);
+missNumbers( playboard, 25);
 }
 else if(level==2){
-missNumbers( playboard[9][9], 40);
+missNumbers( playboard, 40);
 }
 else if(level==3){
-missNumbers( playboard[9][9], 55);
+missNumbers( playboard, 55);
 }
 
 	
@@ -262,7 +262,7 @@ void playsudoku(){
 		printBoard(playboard);
 		cout<<endl;
 		cout<<"Do You want to play or get hints or solve sudoku"<<endl;
-		cout<<"Press P= play, H=hint, S=solve & X=exit , "
+		cout<<"Press P= play, H=hint, S=solve & X=exit  "<<endl;
 		cin >> ch;
 		if(ch == 'H' || ch == 'h') {
             hint();
