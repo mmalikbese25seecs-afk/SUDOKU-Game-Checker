@@ -62,18 +62,26 @@ int main(){
          playboard[i][j] = sudokusol[i][j];
      }
  }
-	cout<<"Enter the level you want to play(1=Easy,2=Medium,3=Master)";
+while(true){
+cout<<"Enter the level you want to play(1=Easy,2=Medium,3=Master)";
 cin>>level;
-	
   if(level==1){
   missNumbers( playboard, 25);
+  break;
   }
   else if(level==2){
   missNumbers( playboard, 40);
+  break;
   }
   else if(level==3){
   missNumbers( playboard, 55);
+  break;
   }
+  else{
+  	cout<<"Invalid , enter correct digit"<<endl;
+  	continue;
+  }
+}
 	
 	playsudoku();
 	
@@ -241,19 +249,26 @@ else{
 
 //--------------------------------HINT FUNCTION------------------------------------
 void hint(){
+int row, column;
+while(true){
 
-    for(int i=0;i<9;i++){
-        for(int j=0;j<9;j++){
-            if(playboard[i][j] == 0){
-                playboard[i][j] = sudokusol[i][j];
+cout<<"Enter the row number (1-9): "<<endl;
+cin>>row;
+cout<<"Enter the column number (1-9): "<<endl;
+cin>>column;
+if((row>=1||row<=9 )||(column>=1||column<=9)){
+	break;
+}
+}
+   row--;
+   column--;
+
+                playboard[row][column] = sudokusol[row][column];
                 score -= 10; 
                 cout << "\033[33m Hint used! (-10 points)\033[0m"<<reset<<endl;
                 printBoard(playboard);
                 return;
-            }
-        }
-    }
-    cout << "No empty cells left for hint."<<endl;
+          
 
 }
 //---------------------SUDOKU PALYING FUNCTION---------------------------------
@@ -280,15 +295,36 @@ void playsudoku(){
             cout << "Game exited"<<endl;
             break;
         }
-    if(ch == 'P' || ch == 'p') {
-    cout << "ENTER THE ROW (1-9): ";
+        
+    else if(ch == 'P' || ch == 'p') {
+    	
+    while(true){
+	cout << "ENTER THE ROW (1-9): ";
     cin >> row;
-    cout << "ENTER THE COLUMN (1-9): ";
+    if(row<1||row>9){
+	cout<<"Invalid , type again"<<endl;
+	continue;
+	}
+	break;
+    }
+     while(true){
+	cout << "ENTER THE COLUMN (1-9): ";
     cin >> column;
+    if(column<1||column>9){
+	cout<<"Invalid , type again"<<endl;
+	continue;
+	}
+	break;
+    }
+        
+	cout << "ENTER THE NUMBER (1-9): ";
+    cin >>numb; 
+	                                             
+      while(numb<1 || numb>9){
+	cout<<"Invalid , type again"<<endl;                                             
     cout << "ENTER THE NUMBER (1-9): ";
-    cin >> numb;
-
-    
+    cin >>numb;
+}
     row--; 
     column--;
 
@@ -315,6 +351,10 @@ void playsudoku(){
         cout << "\033[31m Invalid move! (-5 points)\033[0m"<<reset<<endl;   // red
     }
 }
+else{
+        	cout<<"Invalid, try again later"<<endl<<endl;
+        	continue;
+		}
 		cout << "Current score: " << score << endl << endl;
 	}
 }
