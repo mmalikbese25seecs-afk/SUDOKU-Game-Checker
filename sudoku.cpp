@@ -8,13 +8,13 @@ using namespace std;
    bool columncheck(int array[9][9],int lim, int n); 
    bool box(int array[9][9], int row, int column); 
    bool sudoku(int r , int c );
- void missNumbers(int array[9][9], int count);
-void printBoard(int array[9][9]);
+   void missNumbers(int board[9][9], int count);
+   void printBoard(int board[9][9]);
 	
 
 
 int sudokusol[9][9]={0};
-
+int playboard[9][9]={0};
 //-------------------------------------MAIN FUNCTION---------------------------------------
 int main(){
 	// ANSI colors
@@ -172,7 +172,7 @@ continue;
 }
 
 //--------------------------------------Function for missing values in a valid sudoku board-------------------------------------
-	void missNumbers(int array[9][9], int count) {
+	void missNumbers(int board[9][9], int count) {
 	int numsmissed = 0;
 	while (numsmissed < count) {
 
@@ -188,28 +188,31 @@ continue;
 
 //--------------------------------------Function for printing a valid sudoku board-------------------------------------
 void printBoard(int board[9][9]) {
-
-    cout << "+-------+-------+-------+\n";
+    string green = "\033[32m";
+    string white = "\033[37m";
+    string cyan  = "\033[36m";
+    string reset = "\033[0m";
+    cout <<cyan<<"+-------+-------+-------+"<<reset<<endl;
 
     for (int i = 0; i < 9; i++) {
 
-        cout << "| ";   // left border
+        cout <<cyan<< "| "<<reset;   // left border
 
         for (int j = 0; j < 9; j++) {
 
             if (board[i][j] == 0)
-                cout << "_ ";
+                cout << white <<"_ "<< reset;
             else
-                cout << board[i][j] << " ";
+                cout <<green <<board[i][j] << " "<<reset;
 
             if ((j + 1) % 3 == 0)   // after every 3 columns
-                cout << "| ";
+                cout <<cyan<< "| "<<reset;
         }
 
         cout << "\n";
 
         if ((i + 1) % 3 == 0)  // after every 3 rows
-            cout << "+-------+-------+-------+\n";
+            cout <<cyan<< "+-------+-------+-------+"<<reset<<endl;
     }
 }
 
