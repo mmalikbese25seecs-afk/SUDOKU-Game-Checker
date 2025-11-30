@@ -41,44 +41,17 @@ int main(){
     cout << bold << magenta << " ____) | |__| | |__| | |__| | | \\ | |__| |" << reset << endl;
     cout << bold << cyan    << "|_____/ \\____/|_____/ \\____/|_|\\_\\ \\____/  " << reset << endl;
     cout << endl << yellow << "      Welcome to SUDOKU!" << reset << endl << endl;
-    // Dummy Sudoku board
-    string board[] = {
-        "+-------+-------+-------+",
-        "| 5 3 . | . 7 . | . . . |",
-        "| 6 . . | 1 9 5 | . . . |",
-        "| . 9 8 | . . . | . 6 . |",
-        "+-------+-------+-------+",
-        "| 8 . . | . 6 . | . . 3 |",
-        "| 4 . . | 8 . 3 | . . 1 |",
-        "| 7 . . | . 2 . | . . 6 |",
-        "+-------+-------+-------+",
-        "| . 6 . | . . . | 2 8 . |",
-        "| . . . | 4 1 9 | . . 5 |",
-        "| . . . | . 8 . | . 7 9 |",
-        "+-------+-------+-------+"
-    };
-    // Print board in colors
-    for (auto &line : board) {
-        for (char ch : line) {
-            if (ch == '+' || ch == '-' || ch == '|')
-                cout << cyan << ch << reset;
-            else if (isdigit(ch))
-                cout << bold << green << ch << reset;
-            else if (ch == '.')
-                cout << white << ch << reset;
-            else
-                cout << ch;
-        }
-        cout << endl;
-    }
-    cout << endl;
-    cout << yellow << "Press Enter to start the game..." << reset << endl;
-    cin.get();
-    cout << green << "Starting Sudoku game..." << reset << endl;
+
 	srand(time(0));  // seed for random numbers
     if(sudoku(0, 0)) {
-        cout << "Sudoku generated successfully:\n";
+        cout << "Sudoku generated successfully "<<endl;
 	}
+	
+	for(int i = 0; i < 9; i++){
+     for(int j = 0; j < 9; j++){
+         playboard[i][j] = sudokusol[i][j];
+     }
+ }
   system("pause");
   return 0;
 }
@@ -107,14 +80,14 @@ bool rowcheck(int array[9][9],int lim, int n){
 	 return sudoku(r + 1, 0); 
 }
 
-    for(int count = 0; count < 9; count++) {
+    for(int count = 0; count < 19; count++) {
     	
         int num = rand() % 9 + 1;   
         sudokusol[r][c] = num ;
 
-        if(!rowcheck(array, 9, r) &&
-           !columncheck(array, 9, c) &&
-           !box(array, r, c)) {
+        if(!rowcheck(sudokusol, 9, r) &&
+           !columncheck(sudokusol, 9, c) &&
+           !box(sudokusol, r, c)) {
 
             if(sudoku(r, c + 1)) return true; 
         }
