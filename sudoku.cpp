@@ -3,24 +3,26 @@
 #include <ctime>
 using namespace std;
 
-   //before main declaration
+   //DECLARATIONS OF FUNCTIONS
    
-   bool rowcheck(int array[9][9],int lim, int n);
-   bool columncheck(int array[9][9],int lim, int n); 
-   bool box(int array[9][9], int row, int column); 
-   bool sudoku(int r , int c );
-   void missNumbers(int board[9][9], int count);
-   void printBoard(int board[9][9]);
-   bool validmove(int board[9][9], int r, int c, int num);
-   void hint();
-   void playsudoku();
-   bool complete(int board[9][9]);
+   bool rowcheck(int array[9][9],int lim, int n);             //CHECKS REPITION IN ROWS
+   bool columncheck(int array[9][9],int lim, int n);          //CHECKS REPITIONN IN COLUMNS 
+   bool box(int array[9][9], int row, int column);            //CHECKS REPITION IN BOX
+   bool sudoku(int r , int c );                               //RANDOOMLY GENERTATES SUDOKU
+   void missNumbers(int board[9][9], int count);              //MISSES OUT NUMBERS AND CREATES LEVELS
+   void printBoard(int board[9][9]);                          // PRINTS THE BOARD
+   bool validmove(int board[9][9], int r, int c, int num);    // MERGUING OF CHECKING FUNCTIONS
+   void hint();												  // HINTS 
+   void playsudoku();										  // PLAY SUDOKU FUNCTION
+   bool complete(int board[9][9]);							  // COMLETE SUDOKU CHECKING
 
+//GLOBAL VARIABLES AND ARRAYS
 int score = 0;
 string reset = "\033[0m";
 
 int sudokusol[9][9]={0};
 int playboard[9][9]={0};
+
 //-------------------------------------MAIN FUNCTION---------------------------------------
 int main(){
 	int level;
@@ -62,38 +64,82 @@ int main(){
  }
 	cout<<"Enter the level you want to play(1=Easy,2=Medium,3=Master)";
 cin>>level;
-if(level==1){
-missNumbers( playboard, 25);
-}
-else if(level==2){
-missNumbers( playboard, 40);
-}
-else if(level==3){
-missNumbers( playboard, 55);
-}
-
 	
-	printBoard(playboard);
+  if(level==1){
+  missNumbers( playboard, 25);
+  }
+  else if(level==2){
+  missNumbers( playboard, 40);
+  }
+  else if(level==3){
+  missNumbers( playboard, 55);
+  }
+	
 	playsudoku();
-  system("pause");
-  return 0;
+	
+    system("pause");
+    return 0;
 }
-///------------------------------------------------------------------------------------------
-bool rowcheck(int array[9][9],int lim, int n){
+//---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+
+//------------------------------ROW CHECKING FUNCTION----------------------------------
+bool rowcheck(int array[9][9],int lim, int n){// FUNCTION CHECKS REPITION IN ROWS
     for(int j=0; j<lim; j++){      
 
     if(array[n][j] == 0){
-	  continue;  
+	  continue;       // IF 0 REPEATS THEN IT IS NOT CONSIDERED
 	 }
     for(int k=j+1 ; k<lim; k++){
      if(array[n][j]==array[n][k]){
-      return true;
+      return true;     // CHECK REPETITION OF THE NUMBERS IN THE ARRAY  
             }
         }
     }
-      return false;
+      return false;    // IF NO REPITION THEN IT SHOWS FALSE
 }
-	//------------------------------------------------------------------------------------------------
+
+//------------------------------COLUMN CHECKING FUNCTION----------------------------------
+bool columncheck(int array[9][9],int lim,int n){
+    for(int i=0; i< lim; i++){
+        if(array[i][n]==0) {
+continue;
+}
+         for(int j=i+1; j<lim; j++){
+            if(array[i][n]==array[j][n]){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+//------------------------------BOX CHECKING FUNCTION----------------------------------
+bool box(int array[9][9], int row, int column){
+    int startrow = row - (row%3);
+    int startcolumn = column - (column%3);
+    int one_d[9];
+    int enter = 0;
+    for (int i = startrow; i < startrow +3; i++) {
+        for(int j = startcolumn; j < startcolumn+ 3; j++) {
+            one_d[enter] = array[i][j];
+            enter++;
+        }
+    }
+    for (int k = 0; k <9; k++) {
+        if(one_d[k] == 0) {
+continue;
+}
+        for (int j = k + 1; j < 9; j++) {
+            if(one_d[k] == one_d[j]) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+//-----------------------------SUDOKU CREATING FUNCTION-------------------------------------
 	bool sudoku(int r , int c ) {
     if(r == 9){
 	 return true; 
@@ -120,52 +166,7 @@ bool rowcheck(int array[9][9],int lim, int n){
 
     return false; 
 }  
-// before main declaration
 
-
-
-
-
-
-// after main
-bool box(int array[9][9], int row, int column)
-{
-    int startrow = row - (row%3);
-    int startcolumn = column - (column%3);
-    int one_d[9];
-    int enter = 0;
-    for (int i = startrow; i < startrow +3; i++) {
-        for(int j = startcolumn; j < startcolumn+ 3; j++) {
-            one_d[enter] = array[i][j];
-            enter++;
-        }
-    }
-    for (int k = 0; k <9; k++) {
-        if(one_d[k] == 0) {
-continue;
-}
-        for (int j = k + 1; j < 9; j++) {
-            if(one_d[k] == one_d[j]) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-bool columncheck(int array[9][9],int lim,int n){
-    for(int i=0; i< lim; i++){
-        if(array[i][n]==0) {
-continue;
-}
-         for(int j=i+1; j<lim; j++){
-            if(array[i][n]==array[j][n]){
-                return true;
-            }
-        }
-    }
-    return false;
-}
 
 //--------------------------------------Function for missing values in a valid sudoku board-------------------------------------
 	void missNumbers(int board[9][9], int count) {
@@ -214,7 +215,7 @@ void printBoard(int board[9][9]) {
     }
 }
 
-//----------------------------------------------------------------------------
+//--------------------------MERGING ALL CHECKINGS FOR VALID MOVE-------------------------------
 	bool validmove(int board[9][9], int r, int c, int num)
 {
   
@@ -236,7 +237,7 @@ void printBoard(int board[9][9]) {
     return false;
 }
 
-//-----------------------------------------------------------------------------
+//--------------------------------HINT FUNCTION------------------------------------
 void hint(){
 
     for(int i=0;i<9;i++){
@@ -253,7 +254,7 @@ void hint(){
     cout << "No empty cells left for hint."<<endl;
 
 }
-//---------------------------------------------------------------------
+//---------------------SUDOKU PALYING FUNCTION---------------------------------
 void playsudoku(){
 	char ch;
 	int row, column,numb; 
@@ -315,7 +316,7 @@ void playsudoku(){
 		cout << "Current score: " << score << endl << endl;
 	}
 }
-//----------------------------------------------------------------------------------
+//-----------------------------FUNCTION TO CHECK IF SUDOKU IS COMPLETE------------------------------------------
 	bool complete(int board[9][9]) {
     for(int i = 0; i < 9; i++){
         for(int j = 0; j < 9; j++){
