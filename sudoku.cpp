@@ -17,6 +17,8 @@ using namespace std;
    bool complete(int board[9][9]);
 
 int score = 0;
+string reset = "\033[0m";
+
 int sudokusol[9][9]={0};
 int playboard[9][9]={0};
 //-------------------------------------MAIN FUNCTION---------------------------------------
@@ -30,7 +32,6 @@ int main(){
     string cyan    = "\033[36m";
     string white   = "\033[37m";
     string bold    = "\033[1m";
-    string reset   = "\033[0m";
     // Clear screen
 #ifdef _WIN32
     system("cls");
@@ -56,7 +57,7 @@ int main(){
          playboard[i][j] = sudokusol[i][j];
      }
  }
-	printBoard(playboard)
+	printBoard(playboard);
   system("pause");
   return 0;
 }
@@ -236,7 +237,7 @@ void hint(){
 //---------------------------------------------------------------------
 void playsudoku(){
 	char ch;
-	int row; column; numb; 
+	int row, column,numb; 
 	
 	while(true){
 		printBoard(playboard);
