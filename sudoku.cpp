@@ -200,9 +200,11 @@ void printBoard(int board[9][9]) {
             if (board[i][j] == 0){
                 cout << white <<"_ "<< reset;}
 				else if(sudokusol[i][j] == board[i][j]){
-                cout << green << board[i][j] << " " << reset;}
-            else{
-                cout <<green <<board[i][j] << " "<<reset;}
+    cout << "\033[32m" << board[i][j] << " " << reset; 
+}
+else{
+    cout << "\033[37m" << board[i][j] << " " << reset; // 
+}
 
             if ((j + 1) % 3 == 0)   // after every 3 columns
                 cout <<cyan<< "| "<<reset;
