@@ -74,7 +74,7 @@ missNumbers( playboard, 55);
 
 	
 	printBoard(playboard);
-	playsudoku;
+	playsudoku();
   system("pause");
   return 0;
 }
@@ -291,8 +291,14 @@ void playsudoku(){
 
     if(validmove(playboard, row, column, numb)) {
         playboard[row][column] = numb;
+		if(numb == sudokusol[row][column]) {  
         score += 10;
-        cout << "\033[32m Valid Move  (+10 points)\033[0m"<<reset<<endl; // green
+        cout << "\033[32mCorrect Move! (+10 points)\033[0m" << reset << endl; 
+    }
+        else {  
+        score += 5;
+        cout << "\033[34mValid but not solution! (+5 points)\033[0m" << reset << endl; // Blue
+    }
     
 		if(complete(playboard)) {
             printBoard(playboard);
@@ -303,7 +309,7 @@ void playsudoku(){
 	}
 	else {
         score -= 5;
-        cout << "\033[31mInvalid move! (-5 points)\033[0m"<<reset<<endl;   // red
+        cout << "\033[31m Invalid move! (-5 points)\033[0m"<<reset<<endl;   // red
     }
 }
 		cout << "Current score: " << score << endl << endl;
