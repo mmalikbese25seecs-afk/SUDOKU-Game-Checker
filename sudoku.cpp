@@ -23,6 +23,7 @@ int sudokusol[9][9]={0};
 int playboard[9][9]={0};
 //-------------------------------------MAIN FUNCTION---------------------------------------
 int main(){
+	int level;
 	// ANSI colors
     string red     = "\033[31m";
     string green   = "\033[32m";
@@ -52,30 +53,32 @@ int main(){
         cout << "Sudoku generated successfully "<<endl;
 	}
 
-	------------------------------------------------LEVELS(EASY,MEDIUM,HARD)-------------------------------------------------
-		int level;
-	cout<<"Enter the level you want to play(1=Easy,2=Medium,3=Master)";
-cin>>level;
-if(level==1){
-missNumbers( board[9][9], 25);
-}
-if(level==2){
-missNumbers( board[9][9], 40);
-}
-if(level==3){
-missNumbers( board[9][9], 55);
-}
-
+	//------------------------------------------------LEVELS(EASY,MEDIUM,HARD)-------------------------------------------------
+		
 	for(int i = 0; i < 9; i++){
      for(int j = 0; j < 9; j++){
          playboard[i][j] = sudokusol[i][j];
      }
  }
+	cout<<"Enter the level you want to play(1=Easy,2=Medium,3=Master)";
+cin>>level;
+if(level==1){
+missNumbers( playboard[9][9], 25);
+}
+else if(level==2){
+missNumbers( playboard[9][9], 40);
+}
+else if(level==3){
+missNumbers( playboard[9][9], 55);
+}
+
+	
 	printBoard(playboard);
+	playsudoku;
   system("pause");
   return 0;
 }
-//------------------------------------------------------------------------------------------
+///------------------------------------------------------------------------------------------
 bool rowcheck(int array[9][9],int lim, int n){
     for(int j=0; j<lim; j++){      
 
@@ -184,7 +187,7 @@ void printBoard(int board[9][9]) {
     string green = "\033[32m";
     string white = "\033[37m";
     string cyan  = "\033[36m";
-    string reset = "\033[0m";
+    string blue  = "\033[34m";
     cout <<cyan<<"+-------+-------+-------+"<<reset<<endl;
 
     for (int i = 0; i < 9; i++) {
@@ -193,10 +196,12 @@ void printBoard(int board[9][9]) {
 
         for (int j = 0; j < 9; j++) {
 
-            if (board[i][j] == 0)
-                cout << white <<"_ "<< reset;
-            else
-                cout <<green <<board[i][j] << " "<<reset;
+            if (board[i][j] == 0){
+                cout << white <<"_ "<< reset;}
+				else if(sudokusol[i][j] == board[i][j]){
+                cout << green << board[i][j] << " " << reset;}
+            else{
+                cout <<green <<board[i][j] << " "<<reset;}
 
             if ((j + 1) % 3 == 0)   // after every 3 columns
                 cout <<cyan<< "| "<<reset;
@@ -272,7 +277,7 @@ void playsudoku(){
             cout << "Game exited"<<endl;
             break;
         }
-        if(ch == 'P' || ch == 'p') {
+    if(ch == 'P' || ch == 'p') {
     cout << "ENTER THE ROW (1-9): ";
     cin >> row;
     cout << "ENTER THE COLUMN (1-9): ";
@@ -301,6 +306,7 @@ void playsudoku(){
         cout << "\033[31mInvalid move! (-5 points)\033[0m"<<reset<<endl;   // red
     }
 }
+		cout << "Current score: " << score << endl << endl;
 	}
 }
 //----------------------------------------------------------------------------------
