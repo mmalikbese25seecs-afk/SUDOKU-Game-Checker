@@ -4,14 +4,17 @@
 using namespace std;
 
    //before main declaration
-   bool validmove(int board[9][9], int r, int c, int num);
+   
    bool rowcheck(int array[9][9],int lim, int n);
    bool columncheck(int array[9][9],int lim, int n); 
    bool box(int array[9][9], int row, int column); 
    bool sudoku(int r , int c );
    void missNumbers(int board[9][9], int count);
    void printBoard(int board[9][9]);
+   bool validmove(int board[9][9], int r, int c, int num);
    void hint();
+   void playsudoku();
+   bool complete(int board[9][9]);
 
 int score = 0;
 int sudokusol[9][9]={0};
@@ -194,18 +197,105 @@ void printBoard(int board[9][9]) {
 //----------------------------------------------------------------------------
 	bool validmove(int board[9][9], int r, int c, int num)
 {
+  
+    if(board[r][c] != 0){
+        return false;}
+
     
-    int temp = board[r][c];
     board[r][c] = num;
 
-    bool invalid;
- rowcheck(board,9,r) || 
-                   columncheck(board,9,c) || 
-                   box(board,r,c);
+    
+    if(!rowcheck(board, 9, r) &&
+       !columncheck(board, 9, c) &&
+       !box(board, r, c)) {
+        board[r][c] = 0; 
+        return true;
+    }
 
-    board[r][c] = temp; // revert
-
-    return !invalid; // true if valid
+    board[r][c] = 0; 
+    return false;
 }
 
 //-----------------------------------------------------------------------------
+void hint(){
+
+    for(int i=0;i<9;i++){
+        for(int j=0;j<9;j++){
+            if(playboard[i][j] == 0){
+                playboard[i][j] = sudokusol[i][j];
+                score -= 10; 
+                cout << "\033[33m Hint used! (-10 points)\033[0m"<<reset<<endl;
+                printBoard(playboard);
+                return;
+            }
+        }
+    }
+    cout << "No empty cells left for hint."<<endl;
+
+}
+//---------------------------------------------------------------------
+void playsudoku(){
+	char ch;
+	int row; column; numb; 
+	
+	while(true){
+		printBoard(playboard);
+		cout<<endl;
+		cout<<"Do You want to play or get hints or solve sudoku"<<endl;
+		cout<<"Press P= play, H=hint, S=solve & X=exit , "
+		cin >> ch;
+		if(ch == 'H' || ch == 'h') {
+            hint();
+            continue;
+        }
+        else if(ch== 'S' || ch == 's') {
+			score -= 20;
+            printBoard(sudokusol);
+            break;
+        }
+          else if(ch== 'X' || ch == 'x') {
+            cout << "Game exited"<<endl;
+            break;
+        }
+        if(ch == 'P' || ch == 'p') {
+    cout << "ENTER THE ROW (1-9): ";
+    cin >> row;
+    cout << "ENTER THE COLUMN (1-9): ";
+    cin >> column;
+    cout << "ENTER THE NUMBER (1-9): ";
+    cin >> numb;
+
+    
+    row--; 
+    column--;
+
+    if(validmove(playboard, row, column, numb)) {
+        playboard[row][column] = numb;
+        score += 10;
+        cout << "\033[32m Valid Move  (+10 points)\033[0m"<<reset<<endl; // green
+    
+		if(complete(playboard)) {
+            printBoard(playboard);
+            cout << "\033[32mCongratulations! You have completed the Sudoku!\033[0m\n";
+            cout << "Your final score: " << score << endl;
+            break; 
+        }
+	}
+	else {
+        score -= 5;
+        cout << "\033[31mInvalid move! (-5 points)\033[0m"<<reset<<endl;   // red
+    }
+}
+	}
+}
+//----------------------------------------------------------------------------------
+	bool complete(int board[9][9]) {
+    for(int i = 0; i < 9; i++){
+        for(int j = 0; j < 9; j++){
+            if(board[i][j] == 0)  
+                return false;
+        }
+    }
+    return true;  
+}
+
